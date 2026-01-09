@@ -321,5 +321,66 @@ Below is a **full-scale** requirement set distilled from patterns used by high-p
 * System Design (HLD) and Low-Level Design (LLD).
 
 ---
+## 18. Locked Decisions (Non-Negotiables)
+
+The following principles are **locked** and must not be compromised at any stage of design or implementation:
+
+1. **Code Quality First**
+   - Clean code, SOLID principles, clear boundaries, meaningful naming.
+   - No shortcuts or technical debt for speed of delivery.
+
+2. **Architecture Above All**
+   - TOGAF, DDD, C4, and ArchiMate compliance is mandatory.
+   - Layered, modular, and evolvable architecture only.
+
+3. **Performance Is a Primary Requirement**
+   - Ultra-fast execution paths (memory-first, log-first).
+   - No architectural decisions that trade correctness or simplicity for convenience at the cost of latency or throughput.
+
+4. **Testing Is Non-Negotiable**
+   - Unit tests, component tests, and contract tests required for all core modules.
+   - Deterministic, repeatable test harnesses for recovery, replay, and failover.
+
+5. **Functional & Non-Functional Requirements Are Binding**
+   - All requirements documented in this file (sections 0–17) must be met.
+   - Scalability, durability, reliability, security, and operability are first-class concerns.
+
+6. **No Compromise for Timeline**
+   - Delivery time (weeks/months) must not reduce quality, architecture, performance, or correctness.
+   - Refactoring and redesign are acceptable to preserve principles.
+
+7. **Engine-Level Transactions Are Mandatory**
+   - Native transaction semantics (ACID at engine level) must be preserved even under sharding and failover.
+
+8. **SQL Is Not the Source of Truth**
+   - The durable log and engine protocols define correctness.
+   - SQL remains a projection, audit, and analytics store only.
+
+9. **Developer Extensibility Without Safety Loss**
+   - Custom in-memory layouts, snapshot codecs, and execution pipelines are supported **only** if they preserve determinism, durability, and testability.
+
+10. **Documentation Is Part of the System**
+    - Architecture, invariants, protocols, and extension points must be documented alongside code.
+
+> These decisions are **frozen** and may only be changed by explicit revision of this document.
+
+---
+
+## 19. Change Log
+
+All material changes to this document must be recorded here. Follow EAVIP-style discipline: **what changed, where, and why**.
+
+- **2026-01-09**
+  - **Added:** *Section 18 – Locked Decisions (Non-Negotiables)*
+    - **Where:** New section appended at the end of the document.
+    - **Why:** To formally freeze quality, architecture, performance, testing, and ACID requirements as non-negotiable project constraints.
+
+---
+## Summary
+- Added Section 18: Locked Decisions (Non-Negotiables)
+- Added Section 19: Change Log (EAVIP-style)
+
+## Rationale
+Formally locked code quality, architecture, performance, testing, and ACID guarantees as non-negotiable constraints and introduced a mandatory change-log discipline.
 
 *This file is now the canonical state for the project. Continue from here for all future design work.*
