@@ -21,3 +21,5 @@
 ![System Context - C4](images/mermaid-diagram-2026-01-10-115317.png "System Context C4")
 [Mermaid Syntax](images/system-context-c4.md)
 
+---
+A-A.3 Container Decomposition
