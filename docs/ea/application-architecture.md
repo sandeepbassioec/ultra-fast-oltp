@@ -19,5 +19,5 @@
 
 ## A-A.2 System Context (C4-Level)
 
-[Alt text](image URL)
+[Alt text](docs/ea/images/mermaid-diagram-2026-01-10-115317.png)
 
