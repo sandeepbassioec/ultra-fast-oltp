@@ -18,6 +18,6 @@
 ---
 
 ## A-A.2 System Context (C4-Level)
-![Alt text for the image](images/mermaid-diagram-2026-01-10-115317.png "Optional title text")
+![System Context - C4](images/mermaid-diagram-2026-01-10-115317.png "System Context C4")
 [Alt text](docs/ea/images/mermaid-diagram-2026-01-10-115317.png)
 
