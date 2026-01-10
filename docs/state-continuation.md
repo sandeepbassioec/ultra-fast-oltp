@@ -111,6 +111,11 @@ Below is a **full-scale** requirement set distilled from patterns used by high-p
 * Admin operations: pause/resume shard, force snapshot, rebuild projections, drain queues.
 * Upgrade strategy: rolling upgrades with log format/schema versioning.
 
+**LD-YY: Sidecars & Service Mesh Boundaries**
+  - **Decision:** Sidecars/mesh are **permitted only in the Infrastructure Plane** (replication transport, security, observability, traffic shaping).  
+  - **Prohibition:** No sidecar or mesh component may participate in **hot-path execution, transaction protocol (Prepare/Commit/Compensate), state mutation, log ordering, or replay**.
+  - **Rationale:** Preserve determinism, latency, and correctness.
+
 ### 2.3 Developer Extensibility Requirements (Key Differentiator)
 
 * Pluggable **state layout** (custom in-memory structures) per domain.
@@ -265,10 +270,6 @@ Below is a **full-scale** requirement set distilled from patterns used by high-p
 
 ---
 
-*This document is the authoritative state for the project. Continue from here in future sessions.*
-
----
-
 ## 14. ACID Guarantees (Engine-Level)
 
 ### Atomicity
@@ -362,6 +363,16 @@ The following principles are **locked** and must not be compromised at any stage
 10. **Documentation Is Part of the System**
     - Architecture, invariants, protocols, and extension points must be documented alongside code.
 
+11. **LD-XX: Shard Governance & Transactional Topology Control**
+  - **Decision:** Introduce a first-class **Shard Control Plane** consisting of:
+    - **Shard Catalog** (authoritative metadata)
+    - **Policy Engine** (partitioning, consistency, lifecycle, throughput)
+    - **Composite Shards** (multi-entity/domain co-location)
+    - **Per-Command Topology Overrides** (force single-shard execution)
+  - **Rationale:** Enables application-programmable execution topology, reduces cross-shard sagas for critical paths, and             supports enterprise governance.
+  - **Implications:** Router must resolve shards via Catalog; Executors must support multi-aggregate co-location; Saga is             bypassed when co-located.
+  - **Non-Negotiables:** Determinism, replay safety, idempotence, engine-level ACID.
+
 > These decisions are **frozen** and may only be changed by explicit revision of this document.
 
 ---
@@ -375,6 +386,12 @@ All material changes to this document must be recorded here. Follow EAVIP-style 
     - **Where:** New section appended at the end of the document.
     - **Why:** To formally freeze quality, architecture, performance, testing, and ACID requirements as non-negotiable project constraints.
 
+**YYYY-MM-DD**
+  - **Added:** Shard Governance (Catalog + Policy Engine)
+  - **Added:** Composite Shards & Per-Command Topology Overrides
+  - **Added:** Sidecar/Mesh Feasibility with Data-Plane Isolation
+  - **Impact:** Router, Executors, and Platform layers updated conceptually; no change to ACID invariants.
+
 ---
 ## Summary
 - Added Section 18: Locked Decisions (Non-Negotiables)
@@ -384,3 +401,8 @@ All material changes to this document must be recorded here. Follow EAVIP-style 
 Formally locked code quality, architecture, performance, testing, and ACID guarantees as non-negotiable constraints and introduced a mandatory change-log discipline.
 
 *This file is now the canonical state for the project. Continue from here for all future design work.*
+
+
+*This document is the authoritative state for the project. Continue from here in future sessions.*
+
+---
