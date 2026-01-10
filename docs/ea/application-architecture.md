@@ -19,5 +19,5 @@
 
 ## A-A.2 System Context (C4-Level)
 ![System Context - C4](images/mermaid-diagram-2026-01-10-115317.png "System Context C4")
-[Alt text](docs/ea/images/mermaid-diagram-2026-01-10-115317.png)
+[Mermaid Syntax](images/system-context-c4.md)
 
